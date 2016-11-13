@@ -1,14 +1,14 @@
     var AllItems =  [ 
             {
                 "release-year": 1984, 
-                "id": "nintendo-64", 
+                "id": "nintendo64", 
                 "imageUrl": "itemPictures/picsOfItems/nintendo64.jpg", 
                 "name": "Card", 
-                "snippet": "The Next, Next Generation\r\n\r\nExperience the future with Motorola XOOM with Wi-Fi, the world's first tablet powered by Android 3.0 (Honeycomb)."
+                "snippet": "The Nintendo 64 console is very old...."
             }, 
             {
                 "release-year": 1990, 
-                "id": "game-boy", 
+                "id": "gameboy", 
                 "imageUrl": "itemPictures/picsOfItems/gameboy.jpg", 
                 "name": "Game Boy", 
                 "snippet": "A classic colour of grey....."
