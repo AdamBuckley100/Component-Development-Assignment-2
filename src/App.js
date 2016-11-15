@@ -1,6 +1,8 @@
 import React from 'react';
-import './App.css' ;
+import './App.css';
 import _ from 'lodash';
+import Products from  './Data';
+import { Link } from 'react-router'; 
 
       var SelectBox = React.createClass({
           handleChange : function(e, type,value) {
@@ -30,15 +32,15 @@ import _ from 'lodash';
               }
            });
 
-     var ProductItem = React.createClass({
+     var Product= React.createClass({
           render: function(){
+			  console.log("kkkk" + this.props.oneSingleProduct.id);
                return (
               <li className="thumbnail product-listing">
-                <a href={'/products/' + this.props.product.id} className="thumb">
-                     <img src={this.props.product.imageUrl} 
-                     alt={this.props.product.name} /> </a>
-                <a href={'/products/' + this.props.product.id}> {this.props.product.name}</a>
-                <p>{this.props.product.snippet}</p>
+                <Link to={'/products/' + this.props.oneSingleProduct.id} className="thumb">
+                     <img src={"/productSpecs/img/images/images/products/" + this.props.oneSingleProduct.imageUrl} alt={this.props.oneSingleProduct.name} /> </Link>
+                <Link to={'/products/' + this.props.oneSingleProduct.id}> {this.props.oneSingleProduct.name}</Link>
+                <p>{this.props.oneSingleProduct.snippet}</p>
               </li>
                 ) ;
              }
@@ -47,7 +49,7 @@ import _ from 'lodash';
    var FilteredProductList = React.createClass({
         render: function(){
             var displayedProducts = this.props.products.map(function(product) {
-              return <ProductItem key={product.id} product={product} /> ;
+              return <Product key={product.id} oneSingleProduct={product} /> ;
             }) ;
             return (
                     <div className="col-md-10">
@@ -71,9 +73,7 @@ var ProductCatalogueApp = React.createClass({
               }
       }, 
        render: function(){
-         console.log('Criteria: Search= ' + this.state.search + 
-                     ' ; Sort= ' + this.state.sort);
-           var list = this.props.products.filter(function(p) {
+           var list = Products.filter(function(p) {
                   return p.name.toLowerCase().search(
                          this.state.search.toLowerCase() ) !== -1 ;
                     }.bind(this) );
