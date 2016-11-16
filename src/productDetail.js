@@ -1,5 +1,7 @@
 import React from 'react';
 import request from 'superagent' ; 
+import api from './stubAPIQuestions/stubAPI';
+	import { Link } from 'react-router';
 
   var Specification = React.createClass({
 	  
@@ -81,7 +83,121 @@ import request from 'superagent' ;
              );
       }
   });
+  
+  	var Form = React.createClass({
 
+       getInitialState: function() {
+           return { query: '', subject: ''};
+        },
+		
+       handleQueryChange: function(e) {
+           this.setState({query: e.target.value});
+       },
+	   
+       handleSubjectChange: function(e) {
+           this.setState({subject: e.target.value});
+       },
+	   
+	    handleSubmit: function(e) { {/* submit is the add button! */}
+        e.preventDefault();
+        var query = this.state.query.trim();
+        var subject = this.state.subject.trim();
+        if (!query ) {
+          return;
+        }
+        this.props.addHandler(query,subject);
+        this.setState({query: '', subject: ''});
+       }, 
+		
+        render : function() {
+           return (
+		   
+             <form style={{marginTop: '30px'}}>
+			 
+                <h3>Ask A Qussestion about the item for sale:</h3>
+				
+                <div className="form-group">
+				
+                  <input type="text" className="form-control" placeholder="Query" value={this.state.query} onChange={this.handleQueryChange}>
+				  
+				  </input>
+                
+				</div>
+				
+                <div className="form-group">
+				
+                  <input type="text" className="form-control" placeholder="Subject" value={this.state.subject} onChange={this.handleSubjectChange}>
+				  
+				  </input>
+				  
+                </div>
+				
+                <button type="submit" className="btn btn-primary" onClick={this.handleSubmit}>Question</button>
+				
+              </form>
+			  
+            );
+			
+          }
+		  
+       });
+	   
+    var QuestionItem = React.createClass({
+		
+			getInitialState : function() {
+               return {
+                status : '',
+                query: this.props.question.query,
+                subject: this.props.question.subjectaddress,
+               } ;
+            },
+		
+        render : function() {
+			
+            var lineStyle = {
+                 fontSize: '20px', marginLeft: '10px'  };
+            var cursor = { cursor: 'pointer' } ;
+
+			var line ;
+			
+               line = <span>
+
+			   <li>
+			   <dl>
+			   <dt>Question Regarding {this.props.question.subject}</dt>
+			   {this.props.question.query}
+			   </dl>
+			   </li>
+			   <br></br>
+
+			   </span>;
+			   
+            return (
+              <div >
+   
+                <span style={lineStyle} >{line}<span>
+   <Link to={'/questions/' + this.props.question.id }>Comments</Link>
+                  </span>
+                </span>
+              </div>  
+        );
+        }
+       }) ;
+	   
+	  var QuestionsList = React.createClass({
+        render : function() {
+          var items = this.props.questions.map(function(question,index) {
+             return <QuestionItem key={index} question={question} 
+						addHandler={this.props.addHandler} /> ;
+            }.bind(this) )
+          return (
+            <div>
+                  {items}
+                  </div>
+            );
+        }
+    }) ; 
+	   
     var ImagesSection = React.createClass({
       render: function(){
 		  
@@ -123,6 +239,12 @@ import request from 'superagent' ;
            return { product: null };
        },
 	   
+	   		 addQuestion : function(t,l) {
+            if (api.add(t,l)) {
+             this.setState({});
+			}
+          },
+	   
        componentDidMount: function() {
 		   
 		   var url = '/theJsonFiles/' + this.props.params.id + '.json';
@@ -142,6 +264,11 @@ import request from 'superagent' ;
 	  
       render: function(){	  
 
+		 var questions = _.sortBy(api.getAll(), function(question) {
+         return - question;
+             }
+          );
+	  
 		var display;
 
             var product = this.state.product ;
@@ -163,7 +290,9 @@ import request from 'superagent' ;
 			 
             return (
                 <div>
-              {display}
+				{display}
+				<QuestionsList questions={questions} />
+               <Form addHandler={this.addQuestion}  />
             </div>
             );
       }
