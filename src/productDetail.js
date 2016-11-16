@@ -1,38 +1,83 @@
-    import React from 'react';
-    import request from 'superagent' ; 
+import React from 'react';
+import request from 'superagent' ; 
 
   var Specification = React.createClass({
+	  
       render: function(){
 	  
           var product = this.props.product ; 
           			
           var display = (
+		
+		  
               <div>
+			  	 <h1>{this.props.product.name} Details</h1>
+			  
+			  <br>
+			  </br>
+			  <br>
+			  </br>
+			  
                  <ul className="specs">
-                  <li >
-				    <span>Display</span>
-					
-					
-					<span>Display</span>
-                    <span>Basic Information:</span>
+                  
+				  <li>
                     <dl>
-                      <dt>{product.description}</dt>
+                      <dt>Official Product Name</dt>
+                         {product.name}
                     </dl>
                   </li>
-                  <li>
-                    <dl>
-                      <dt>Release Year:</dt>
-                      <dd>{product.manufacturer}</dd>
-                    </dl>
-                  </li>    
 				  
-                  </ul>            
+				  <li>
+                    <dl>
+                      <dt>Release Year</dt>
+                         {product.releaseYear}
+                    </dl>
+                  </li>
+
+				  <li>
+                    <dl>
+                      <dt>Version</dt>
+                         {product.version}
+                    </dl>
+                  </li>
+				  <br></br>
+				  
+				  <li>
+                    <dl>
+                      <dt>RAM</dt>
+                         {product.ram}
+                    </dl>
+                  </li>
+				  
+				  <li>
+                    <dl>
+                      <dt>Manufacturer</dt>
+                         {product.manufacturer}
+                    </dl>
+                  </li>
+				  
+				  <li>
+                    <dl>
+                      <dt>Weight</dt>
+                         {product.weight}
+                    </dl>
+                  </li>
+				  
+                  </ul> 
+
+					<br>
+					</br>
             </div>
+			
+			
            )
+		   
             return (
+			
                  <div>
                   {display}
               </div>
+			  
              );
       }
   });
@@ -41,20 +86,29 @@
       render: function(){
 		  
             var thumbImages = this.props.product.images.map(function(img,index) {
+				
               return (
                   <li>
-                   <img key={index} src={"/productSpecs/" + img}
-                       alt="missing" />
-                </li>
-                ) ;
-                } );
+				  <br>
+				  </br>
+				  <br>
+				  </br>
+                   <img key={index} src={"/productSpecs/" + img} alt="missing" />
+				  <br>
+				  </br>	
+				  <br>
+				  </br>
+                  </li>
 				
-
-			
+                );
+	
+                });
+				
               return (
+			  
                   <div>
-                   <h1>{this.props.product.name} Details</h1>
-                   <p>{this.props.product.description}</p>
+			  	 <p><b>Photos Of {this.props.product.name}:</b></p>
+				 <br></br>
                    <ul className="product-thumbs">
                        {thumbImages}
                    </ul>
@@ -64,12 +118,12 @@
     })
 
     var ProductDetail = React.createClass({
+		
        getInitialState: function() {
            return { product: null };
        },
 	   
        componentDidMount: function() {
-		   console.log("Checking........" + this.props.params.id);
 		   
 		   var url = '/theJsonFiles/' + this.props.params.id + '.json';
 		   console.log(url);
@@ -87,19 +141,21 @@
       } ,
 	  
       render: function(){	  
-//console.log(product);
-var display;
+
+		var display;
 
             var product = this.state.product ;
-          if (product)
-		  {
-           display =  (
+			
+				if (product)
+				{
+				display =  (
                 <div>
-                   <ImagesSection product={product} />
-                   <Specification  product={product} />       
+				   <Specification  product={product} />
+                   <ImagesSection product={product} />       
                 </div>
                 ) ;
              }
+			 
 			 else
 			 {
 			display = <p>No product details</p> ; 

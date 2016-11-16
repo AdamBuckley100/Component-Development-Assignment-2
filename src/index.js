@@ -23,7 +23,6 @@ import ProductDetail from './productDetail';
            <IndexRoute component={ProductCatalogueApp}/>
            <Route path="products/:id" component={ProductDetail} />
         </Route>
-		
       </Router>
     ),
       document.getElementById('root')

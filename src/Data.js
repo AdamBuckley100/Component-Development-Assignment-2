@@ -7,7 +7,6 @@
 			    "release-year": 1996,  
                 "id": "nintendo64", 
                 "imageUrl": "nintendo64.jpg", 
-                "name": "Card", 
                 "snippet": "The Nintendo 64 console is very old...."
             }, 
             {
@@ -15,8 +14,7 @@
 				"description": "it's a handheld device",
 			    "release-year": 1989,
                 "id": "gameboy", 
-                "imageUrl": "gameboy.jpg", 
-                "name": "Game Boy", 
+                "imageUrl": "gameboy.jpg",  
                 "snippet": "A classic colour of grey....."
             },  
             {
@@ -25,7 +23,6 @@
 			    "release-year": 2001,  
                 "id": "gamecube", 
                 "imageUrl": "gamecube.jpg", 
-                "name": "Gamecube", 
                 "snippet": "Released in 2001......"
             }
 			] ; 

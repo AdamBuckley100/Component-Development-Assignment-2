@@ -1,17 +1,19 @@
 { 
 	"name" : "Game Boy",
-	"release-year" : 1989,
-	"description:" : "hhhhhhh",
+	"releaseYear" : 1989,
+	"description:" : "The Game Boy is an 8-bit handheld video game device developed and manufactured by Nintendo, which was released in Japan on April 21, 1989, in North America on July 31, 1989, and in Europe on September 28, 1990. It is the first handheld console in the Game Boy line, and was created by Gunpei Yokoi and Nintendo Research & Development 1—the same staff who had designed the Game & Watch series",
 	"manufacturer" : "Nintendo",
+	"ram" : "8kB",
+	"weight" : "394 grams",
+	"version": "The Original first version (does not a power LED)",
 	
     "images":
 	[
-        "img/products/1.jpeg", 
-        "img/products/2.jpeg", 
-        "img/products/3.jpeg", 
-        "img/products/4.jpeg", 
-        "img/products/5.jpeg", 
-        "img/products/6.jpeg"
+        "img/products/gameboy/gameboy1.jpeg", 
+        "img/products/gameboy/gameboy2.jpeg", 
+        "img/products/gameboy/gameboy3.jpeg", 
+        "img/products/gameboy/gameboy4.jpeg", 
+        "img/products/gameboy/gameboy5.jpeg"
     ]
 	
 

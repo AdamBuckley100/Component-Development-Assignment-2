@@ -1,10 +1,17 @@
 {
-	"id": "gamecube", 
-	"Name": "Gamecube",
-	"Description": "it's a handheld device that is not considered retro quite yet...",
+	"name" : "Gamecube",
+	"releaseYear" : 2001,
+	"description:" : "The GameCube (Japanese: ゲームキューブ Hepburn: Gēmukyūbu?, officially called the Nintendo GameCube, abbreviated NGC in Japan and GCN in Europe and North America) is a home video game console released by Nintendo in Japan on September 14, 2001; in North America on November 18, 2001; in Europe on May 3, 2002; and in Australia on May 17, 2002. The sixth-generation console is the successor to the Nintendo 64.",
+	"manufacturer" : "Nintendo",
+	"ram" : "2MB",
+	"weight" : "2.4 kg",
+	"version": "2nd",
     "Manufacturer": "Nintendo", 
-    "Sales": {
-        "UnitedStates": "Nine Million", 
-        "Europe": "Three Million"
-    }, 
+	
+	    "images":
+	[
+		"img/products/gamecube/gamecube1.jpeg", 
+        "img/products/gamecube/gamecube2.jpeg", 
+        "img/products/gamecube/gamecube3.jpeg"
+    ]
 }
