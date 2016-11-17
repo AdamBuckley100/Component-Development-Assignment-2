@@ -2,6 +2,7 @@ import React from 'react';
 import request from 'superagent' ; 
 import api from './stubAPIQuestions/stubAPI';
 	import { Link } from 'react-router';
+	    import _ from 'lodash';
 
   var Specification = React.createClass({
 	  
@@ -10,8 +11,7 @@ import api from './stubAPIQuestions/stubAPI';
           var product = this.props.product ; 
           			
           var display = (
-		
-		  
+	
               <div>
 			  	 <h1>{this.props.product.name} Details</h1>
 			  
@@ -70,10 +70,7 @@ import api from './stubAPIQuestions/stubAPI';
 					<br>
 					</br>
             </div>
-			
-			
            )
-		   
             return (
 			
                  <div>
@@ -114,11 +111,11 @@ import api from './stubAPIQuestions/stubAPI';
 		   
              <form style={{marginTop: '30px'}}>
 			 
-                <h3>Ask A Qussestion about the item for sale:</h3>
+                <h3>Ask A Question about the item for sale:</h3>
 				
                 <div className="form-group">
 				
-                  <input type="text" className="form-control" placeholder="Query" value={this.state.query} onChange={this.handleQueryChange}>
+				<input type="text" className="form-control" placeholder="Subject" value={this.state.subject} onChange={this.handleSubjectChange}>
 				  
 				  </input>
                 
@@ -126,7 +123,7 @@ import api from './stubAPIQuestions/stubAPI';
 				
                 <div className="form-group">
 				
-                  <input type="text" className="form-control" placeholder="Subject" value={this.state.subject} onChange={this.handleSubjectChange}>
+                  <input type="text" className="form-control" placeholder="Query" value={this.state.query} onChange={this.handleQueryChange}>
 				  
 				  </input>
 				  
@@ -176,7 +173,7 @@ import api from './stubAPIQuestions/stubAPI';
               <div >
    
                 <span style={lineStyle} >{line}<span>
-   <Link to={'/questions/' + this.props.question.id }>Comments</Link>
+   <Link to={'/questions/' + this.props.question.id }>Answers</Link>
                   </span>
                 </span>
               </div>  
@@ -184,7 +181,7 @@ import api from './stubAPIQuestions/stubAPI';
         }
        }) ;
 	   
-	  var QuestionsList = React.createClass({
+	  var QuestionList = React.createClass({
         render : function() {
           var items = this.props.questions.map(function(question,index) {
              return <QuestionItem key={index} question={question} 
@@ -215,9 +212,7 @@ import api from './stubAPIQuestions/stubAPI';
 				  <br>
 				  </br>
                   </li>
-				
                 );
-	
                 });
 				
               return (
@@ -291,7 +286,7 @@ import api from './stubAPIQuestions/stubAPI';
             return (
                 <div>
 				{display}
-				<QuestionsList questions={questions} />
+				<QuestionList questions={questions} />
                <Form addHandler={this.addQuestion}  />
             </div>
             );

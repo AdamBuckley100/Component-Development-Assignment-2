@@ -5,11 +5,11 @@
     var Form = React.createClass({
 		
        getInitialState: function() {
-           return { question: '', name: ''};
+           return { answer: '', name: ''};
         },
 		
-        handleQuestionChange: function(e) {
-             this.setState({question : e.target.value});
+        handleAnswerChange: function(e) {
+             this.setState({answer : e.target.value});
          },
 		 
          handleNameChange: function(e) {
@@ -18,24 +18,24 @@
 		 
          onSubmit : function(e) {
               e.preventDefault();
-              var question = this.state.question.trim();
+              var answer = this.state.answer.trim();
               var name = this.state.name.trim();
-              if (!question ) {
+              if (!answer ) {
                   return;
               }
-              this.props.questionHandler(question ,name );
-              this.setState({question: '', name: ''});
+              this.props.answerHandler(answer ,name );
+              this.setState({answer: '', name: ''});
          },
 		 
         render : function() {
              return (
                <form  style={{marginTop: '30px'}}>
-                <h3>Add a new question</h3>
+                <h3>Add a new answer</h3>
 
                 <div className="form-group">
                   <input type="text"  className="form-control"
-                        placeholder="question" value={this.state.question}
-                        onChange={this.handlequestionChange} ></input>
+                        placeholder="Answer" value={this.state.answer}
+                        onChange={this.handleAnswerChange} ></input>
                 </div>     
                 <div className="form-group">
                   <input type="text"  className="form-control"
@@ -49,9 +49,9 @@
           }
        });
 
-    var Question = React.createClass({
+    var Answer = React.createClass({
         handleVote : function() {
-             this.props.upvoteHandler(this.props.question.id);
+             this.props.upvoteHandler(this.props.answer.id);
         },
         render : function() {
             var lineStyle = {
@@ -60,20 +60,19 @@
                <div>
                   <span className="glyphicon glyphicon-thumbs-up"
                         onClick={this.handleVote}></span>
-                    {this.props.question.upvotes} - by {this.props.question.author}
+                    {this.props.answer.upvotes} - by {this.props.answer.author}
                   <span style={lineStyle} >
-                    {this.props.question.question}
+                    {this.props.answer.answer}
                   </span>
                 </div>                
                );
           }
      }) ;
 
-    var QuestionList = React.createClass({
-		
+    var AnswerList = React.createClass({
         render : function() {
-          var items = this.props.questions.map(function(question,index) {
-                 return <Question key={index} question={question} 
+          var items = this.props.answers.map(function(answer,index) {
+                 return <Answer key={index} answer={answer} 
                           upvoteHandler={this.props.upvoteHandler}  /> ;
              }.bind(this) )
           return (
@@ -84,20 +83,17 @@
         }
     }) ;  
 
-    var QuestionView = React.createClass({
-		
-        addQuestion : function(c,n) {
+    var AnswerView = React.createClass({
+        addAnswer : function(c,n) {
           var pid = parseInt( this.props.params.postId, 10);
-          api.addQuestion(pid,c,n);
+          api.addAnswer(pid,c,n);
           this.setState({});
       }, 
-	  
-      incrementUpvote : function(questionId) {
+      incrementUpvote : function(answerId) {
              var pid = parseInt( this.props.params.postId, 10);
-            api.upvoteQuestion(pid, questionId) ;
+            api.upvoteAnswer(pid, answerId) ;
            this.setState({});
       },    
-	  
       render: function(){
              var pid = parseInt(this.props.params.postId,10) ;
            var post = api.getPost( pid);
@@ -108,19 +104,19 @@
             } else {
                line = <span>{post.title} </span> ;
             }
-          var questions = _.sortBy(post.questions, function(question) {
-                                 return - question.upvotes;
+          var answers = _.sortBy(post.answers, function(answer) {
+                                 return - answer.upvotes;
                             }
                     ); 
           return (  
              <div >
                <h3>{line} </h3>
-               <QuestionList questions={questions} 
+               <AnswerList answers={answers} 
                    upvoteHandler={this.incrementUpvote } />
-               <Form post={post}  questionHandler={this.addQuestion} /> 
+               <Form post={post}  answerHandler={this.addAnswer} /> 
              </div>
           );
       }
     });
 
-    export default QuestionView;
+    export default AnswerView;

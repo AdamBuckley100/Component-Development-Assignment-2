@@ -5,16 +5,20 @@ import Products from  './Data';
 import { Link } from 'react-router'; 
 
       var SelectBox = React.createClass({
+		  
           handleChange : function(e, type,value) {
                e.preventDefault();
                this.props.onUserInput( type,value);
           },
+		  
           handleTextChange : function(e) {
                 this.handleChange( e, 'search', e.target.value);
           },
+		  
           handleSortChange : function(e) {
               this.handleChange(e, 'sort', e.target.value);
           },
+		  
           render: function(){
                return (
                  <div className="col-md-10">
@@ -83,6 +87,7 @@ var ProductCatalogueApp = React.createClass({
               <div className="view-frame">
                  <div className="container-fluid">
                    <div className="row">
+				   			   <h1> <strong> Products For Sale </strong> </h1>
                       <SelectBox onUserInput={this.handleChange } 
                              filterText={this.state.search} 
                              sort={this.state.sort} />
