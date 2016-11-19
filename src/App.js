@@ -28,8 +28,8 @@ import { Link } from 'react-router';
                Sort by:
                    <select id="sort" value={this.props.order } 
                              onChange={this.handleSortChange} >
-                   <option value="name">Alphabetical (ascending)</option>
-                   <option value="release-year">Oldest First</option>
+                   <option value="name">Alphabetical (Ascending)</option>
+                   <option value="release-year">Oldest First (Release Date)</option>
                </select>
                  </div>
                 );

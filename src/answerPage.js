@@ -86,40 +86,30 @@
     var AnswerView = React.createClass({
         addAnswer : function(c,n) {
           var qid = parseInt( this.props.params.questionId, 10);
-		  			 console.log("111111111111111 " + qid);
+
           api.addAnswer(qid,c,n);
           this.setState({});
       }, 
       incrementUpvote : function(answerId) {
              var qid = parseInt( this.props.params.questionId, 10);
-			 			 console.log("22222222222222 " + qid);
+
             api.upvoteAnswer(qid, answerId) ;
            this.setState({});
       },    
       render: function(){
              var qid = parseInt(this.props.params.questionId,10) ;
-			 console.log("hhhhhhhhhh " + qid);
            var question = api.getQuestion( qid);
            var line = null ;
-		   
 
-			
 			line =
 			<span>
 			
-			Answer the Question about {question.subject},
+			Answer The Question about: {question.subject}.
 			<br></br>
 			<br></br>
-			the question is: {question.query}
-			
-			
-			
-			
-			
-			
+			The Question Is: {question.query}
+
 			</span>
-			
-			
 			
           var answers = _.sortBy(question.answers, function(answer) {
                                  return - answer.upvotes;

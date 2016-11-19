@@ -37,6 +37,13 @@ import AnswerView from './answerPage';
            <IndexRoute component={ProductDetail}/>
            <Route path="questions/:questionId" component={AnswerView} />
 			</Route>
+	 
+	 	   <Route path="/" component={App}>
+           <IndexRoute component={ProductCatalogueApp}/>
+           <Route path=":id" component={ProductDetail} />
+			</Route>
+			
+			
 	
       </Router>
     ),

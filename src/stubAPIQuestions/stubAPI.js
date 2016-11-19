@@ -3,7 +3,7 @@ import _ from 'lodash';
 var questions = [
 		  { 
 			id: 1,
-			subject : 'Dispfgdfglay',
+			subject : 'Display',
 			query : 'What are the screen dimensions?',			
 			username : 'jmurphy',  
 			answers : [],

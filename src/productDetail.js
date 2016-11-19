@@ -1,8 +1,8 @@
 import React from 'react';
 import request from 'superagent' ; 
 import api from './stubAPIQuestions/stubAPI';
-	import { Link } from 'react-router';
-	    import _ from 'lodash';
+import { Link } from 'react-router';
+import _ from 'lodash';
 
   var Specification = React.createClass({
 	  
@@ -110,7 +110,7 @@ import api from './stubAPIQuestions/stubAPI';
            return (
 		   
              <form style={{marginTop: '30px'}}>
-			 
+			  
                 <h3>Ask A Question about the item for sale:</h3>
 				
                 <div className="form-group">
@@ -246,8 +246,10 @@ import api from './stubAPIQuestions/stubAPI';
 	   
        componentDidMount: function() {
 		   
+
 		   var url = '/theJsonFiles/' + this.props.params.id + '.json';
-		   console.log(url);
+		   console.log("mmmmmmmmmmmm" + url);
+		   
 		   
           request.get(
              url, function(err, res) {
@@ -277,7 +279,7 @@ import api from './stubAPIQuestions/stubAPI';
 				display =  (
                 <div>
 				   <Specification  product={product} />
-                   <ImagesSection product={product} />       
+                   <ImagesSection product={product} />  
                 </div>
                 ) ;
              }
