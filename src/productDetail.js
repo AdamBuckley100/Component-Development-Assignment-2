@@ -87,23 +87,23 @@ import api from './stubAPIQuestions/stubAPI';
            return { query: '', subject: ''};
         },
 		
+		handleSubjectChange: function(e) {
+           this.setState({subject: e.target.value});
+       },
+		
        handleQueryChange: function(e) {
            this.setState({query: e.target.value});
        },
 	   
-       handleSubjectChange: function(e) {
-           this.setState({subject: e.target.value});
-       },
-	   
 	    handleSubmit: function(e) { {/* submit is the add button! */}
         e.preventDefault();
+	    var subject = this.state.subject.trim();
         var query = this.state.query.trim();
-        var subject = this.state.subject.trim();
         if (!query ) {
           return;
         }
-        this.props.addHandler(query,subject);
-        this.setState({query: '', subject: ''});
+        this.props.addHandler(subject,query);
+        this.setState({subject: '', query: ''});
        }, 
 		
         render : function() {
@@ -144,10 +144,14 @@ import api from './stubAPIQuestions/stubAPI';
 			getInitialState : function() {
                return {
                 status : '',
-                query: this.props.question.query,
-                subject: this.props.question.subjectaddress,
+				subject: this.props.question.subject,
+                query: this.props.question.addess,
                } ;
             },
+			
+		handleVote : function() {
+          this.props.upvoteHandler(this.props.post.id);
+        },
 		
         render : function() {
 			
@@ -172,7 +176,7 @@ import api from './stubAPIQuestions/stubAPI';
             return (
               <div >
    
-                <span style={lineStyle} >{line}<span>
+                <span style={lineStyle}> {line} <span>
    <Link to={'/questions/' + this.props.question.id }>Answers</Link>
                   </span>
                 </span>

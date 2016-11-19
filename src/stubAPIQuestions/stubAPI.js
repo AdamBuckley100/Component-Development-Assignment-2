@@ -1,14 +1,15 @@
-    import _ from 'lodash';
+import _ from 'lodash';
 
-    var questions = [
-              { 
-                id: 1,
-                query : 'What are the screen dimensions?',
-                subject : 'Display',
-				username : 'jmurphy',  
-                answers : [],
-              }
-          ] ;
+var questions = [
+		  { 
+			id: 1,
+			subject : 'Dispfgdfglay',
+			query : 'What are the screen dimensions?',			
+			username : 'jmurphy',  
+			answers : [],
+			upvotes: 10
+		  }
+	  ] ;
 
  var stubAPI = {
 	 getAll : function() {

@@ -25,11 +25,19 @@ import AnswerView from './answerPage';
     });
 	
     ReactDOM.render( (
+	
       <Router history={browserHistory} >
+	  
         <Route path="/" component={App}>
            <IndexRoute component={ProductCatalogueApp}/>
            <Route path="products/:id" component={ProductDetail} />
         </Route>
+	
+	        <Route path="/" component={App}>
+           <IndexRoute component={ProductDetail}/>
+           <Route path="questions/:questionId" component={AnswerView} />
+			</Route>
+	
       </Router>
     ),
       document.getElementById('root')

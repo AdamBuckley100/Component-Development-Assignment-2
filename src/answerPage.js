@@ -85,26 +85,43 @@
 
     var AnswerView = React.createClass({
         addAnswer : function(c,n) {
-          var pid = parseInt( this.props.params.postId, 10);
-          api.addAnswer(pid,c,n);
+          var qid = parseInt( this.props.params.questionId, 10);
+		  			 console.log("111111111111111 " + qid);
+          api.addAnswer(qid,c,n);
           this.setState({});
       }, 
       incrementUpvote : function(answerId) {
-             var pid = parseInt( this.props.params.postId, 10);
-            api.upvoteAnswer(pid, answerId) ;
+             var qid = parseInt( this.props.params.questionId, 10);
+			 			 console.log("22222222222222 " + qid);
+            api.upvoteAnswer(qid, answerId) ;
            this.setState({});
       },    
       render: function(){
-             var pid = parseInt(this.props.params.postId,10) ;
-           var post = api.getPost( pid);
+             var qid = parseInt(this.props.params.questionId,10) ;
+			 console.log("hhhhhhhhhh " + qid);
+           var question = api.getQuestion( qid);
            var line = null ;
-           if (post.link ) {
-               line = <a href={post.link} >
-                            {post.title} </a> ;
-            } else {
-               line = <span>{post.title} </span> ;
-            }
-          var answers = _.sortBy(post.answers, function(answer) {
+		   
+
+			
+			line =
+			<span>
+			
+			Answer the Question about {question.subject},
+			<br></br>
+			<br></br>
+			the question is: {question.query}
+			
+			
+			
+			
+			
+			
+			</span>
+			
+			
+			
+          var answers = _.sortBy(question.answers, function(answer) {
                                  return - answer.upvotes;
                             }
                     ); 
@@ -113,7 +130,7 @@
                <h3>{line} </h3>
                <AnswerList answers={answers} 
                    upvoteHandler={this.incrementUpvote } />
-               <Form post={post}  answerHandler={this.addAnswer} /> 
+               <Form question={question}  answerHandler={this.addAnswer} /> 
              </div>
           );
       }
