@@ -3,6 +3,7 @@ import request from 'superagent' ;
 import api from './stubAPIQuestions/stubAPI';
 import { Link } from 'react-router';
 import _ from 'lodash';
+import './App.css';
 
   var Specification = React.createClass({
 	  
@@ -14,9 +15,6 @@ import _ from 'lodash';
 	
               <div>
 			  <Link to={'/'}> Home </Link>
-			  
-			  
-			  
 			  
 			  	 <h1>{this.props.product.name} Details</h1>
 			  
