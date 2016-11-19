@@ -42,7 +42,9 @@ import { Link } from 'react-router';
                return (
               <li className="thumbnail product-listing">
                 <Link to={'/products/' + this.props.oneSingleProduct.id} className="thumb">
-                     <img src={"/productSpecs/img/images/images/products/" + this.props.oneSingleProduct.imageUrl} alt={this.props.oneSingleProduct.name} /> </Link>
+				
+                <img src={"/productSpecs/img/images/images/products/" + this.props.oneSingleProduct.imageUrl} alt={this.props.oneSingleProduct.name} /> </Link>
+					 
                 <Link to={'/products/' + this.props.oneSingleProduct.id}> {this.props.oneSingleProduct.name}</Link>
                 <p>{this.props.oneSingleProduct.snippet}</p>
               </li>

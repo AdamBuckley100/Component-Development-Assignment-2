@@ -43,8 +43,6 @@ import AnswerView from './answerPage';
            <Route path=":id" component={ProductDetail} />
 			</Route>
 			
-			
-	
       </Router>
     ),
       document.getElementById('root')

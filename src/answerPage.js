@@ -1,6 +1,7 @@
     import React from 'react';
     import _ from 'lodash';
     import api from './stubAPIQuestions/stubAPI';
+	import { Link } from 'react-router'; 
 
     var Form = React.createClass({
 		
@@ -100,9 +101,13 @@
              var qid = parseInt(this.props.params.questionId,10) ;
            var question = api.getQuestion( qid);
            var line = null ;
-
+		     
 			line =
 			<span>
+			<Link to={'/'}> Home </Link>
+			
+			<br></br>
+			<br></br>
 			
 			Answer The Question about: {question.subject}.
 			<br></br>

@@ -13,6 +13,11 @@ import _ from 'lodash';
           var display = (
 	
               <div>
+			  <Link to={'/'}> Home </Link>
+			  
+			  
+			  
+			  
 			  	 <h1>{this.props.product.name} Details</h1>
 			  
 			  <br>
