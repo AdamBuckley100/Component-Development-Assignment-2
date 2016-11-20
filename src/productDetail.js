@@ -132,7 +132,7 @@ import './App.css';
 				  
                 </div>
 				
-                <button type="submit" className="btn btn-primary" onClick={this.handleSubmit}>Question</button>
+                <button type="submit" className="btn btn-primary" onClick={this.handleSubmit}>Submit Question</button>
 				
               </form>
 			  

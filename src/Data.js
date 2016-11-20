@@ -7,7 +7,7 @@
 			    "release-year": 1996,  
                 "id": "nintendo64", 
                 "imageUrl": "nintendo64.jpg", 
-                "snippet": "The Nintendo 64 console is very old...."
+                "snippet": "N64 is Nintendo's third home video game console for the international market."
             }, 
             {
 				"name": "Game Boy",
@@ -15,7 +15,7 @@
 			    "release-year": 1989,
                 "id": "gameboy", 
                 "imageUrl": "gameboy.jpg",  
-                "snippet": "A classic colour of grey....."
+                "snippet": "The Game Boy is Nintendo's second handheld system following the Game & Watch series introduced in 1980."
             },  
             {
 				"name": "Gamecube",
@@ -23,7 +23,7 @@
 			    "release-year": 2001,  
                 "id": "gamecube", 
                 "imageUrl": "gamecube.jpg", 
-                "snippet": "Released in 2001......"
+                "snippet": "The GameCube is the first Nintendo console to use optical discs as its primary storage medium. The discs are similar to the miniDVD format."
             }
 			] ; 
 
