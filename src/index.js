@@ -12,7 +12,7 @@ import AnswerView from './answerPage';
       render : function() {
         return (
             <div>
-               <div >
+               <div>
                   <div>
                      <div>
                            {this.props.children}

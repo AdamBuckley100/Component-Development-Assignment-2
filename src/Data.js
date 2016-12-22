@@ -2,7 +2,7 @@
  var AllProducts = 
               [ 
             {
-				"name": "Nintendo 64",
+				"name": "Nintendo 646",
 				"description": "it's a home console",
 			    "release-year": 1996,  
                 "id": "nintendo64", 

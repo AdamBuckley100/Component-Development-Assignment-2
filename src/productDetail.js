@@ -9,7 +9,7 @@ import './App.css';
 	  
       render: function(){
 	  
-          var product = this.props.product ; 
+          var product = this.props.product; 
           			
           var display = (
 	
@@ -110,6 +110,7 @@ import './App.css';
        }, 
 		
         render : function() {
+			
            return (
 		   
              <form style={{marginTop: '30px'}}>
@@ -180,6 +181,7 @@ import './App.css';
               <div >
    
                 <span style={lineStyle}> {line} <span>
+				
    <Link to={'/questions/' + this.props.question.id }>Answers</Link>
                   </span>
                 </span>
@@ -189,20 +191,28 @@ import './App.css';
        }) ;
 	   
 	  var QuestionList = React.createClass({
+		  
         render : function() {
+			
           var items = this.props.questions.map(function(question,index) {
-             return <QuestionItem key={index} question={question} 
-						addHandler={this.props.addHandler} /> ;
+			  
+             return <QuestionItem key={index} question={question} addHandler={this.props.addHandler} /> ;
+						
             }.bind(this) )
+			
           return (
+		  
             <div>
+			
                   {items}
+				  
                   </div>
             );
         }
     }) ; 
 	   
     var ImagesSection = React.createClass({
+		
       render: function(){
 		  
             var thumbImages = this.props.product.images.map(function(img,index) {
@@ -241,8 +251,8 @@ import './App.css';
            return { product: null };
        },
 	   
-	   		 addQuestion : function(t,l) {
-            if (api.add(t,l)) {
+	   		 addQuestion : function(s,q) {
+            if (api.add(s,q)) {
              this.setState({});
 			}
           },
@@ -251,17 +261,18 @@ import './App.css';
 		   
 
 		   var url = '/theJsonFiles/' + this.props.params.id + '.json';
-		   console.log("mmmmmmmmmmmm" + url);
-		   
+		   console.log("Debug... testing to see if the url is undefined or not:" + url);
 		   
           request.get(
              url, function(err, res) {
                  window.resp = res;
 				 
-				 
 				 var json = JSON.parse(res.text);
+				 
                 if (this.isMounted()) {
-                    this.setState({ product : json});
+					
+                    this.setState({product : json});
+					
           }
         }.bind(this));
       } ,
@@ -269,6 +280,7 @@ import './App.css';
       render: function(){	  
 
 		 var questions = _.sortBy(api.getAll(), function(question) {
+			 
          return - question;
              }
           );
@@ -281,7 +293,7 @@ import './App.css';
 				{
 				display =  (
                 <div>
-				   <Specification  product={product} />
+				   <Specification product={product} />
                    <ImagesSection product={product} />  
                 </div>
                 ) ;

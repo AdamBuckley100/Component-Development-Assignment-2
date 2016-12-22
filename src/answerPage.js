@@ -24,7 +24,7 @@
               if (!answer ) {
                   return;
               }
-              this.props.answerHandler(answer ,name );
+              this.props.answerHandler(answer,name);
               this.setState({answer: '', name: ''});
          },
 		 
@@ -51,9 +51,11 @@
        });
 
     var Answer = React.createClass({
+		
         handleVote : function() {
              this.props.upvoteHandler(this.props.answer.id);
         },
+		
         render : function() {
             var lineStyle = {
                  fontSize: '20px', marginLeft: '10px'  };
@@ -71,38 +73,57 @@
      }) ;
 
     var AnswerList = React.createClass({
+		
         render : function() {
+			
           var items = this.props.answers.map(function(answer,index) {
-                 return <Answer key={index} answer={answer} 
-                          upvoteHandler={this.props.upvoteHandler}  /> ;
+			  
+                 return <Answer key={index} answer={answer} upvoteHandler={this.props.upvoteHandler}  /> ;
+						  
              }.bind(this) )
+			 
           return (
+		  
                 <div>
+				
                   {items}
+				  
                 </div>
             );
         }
     }) ;  
 
     var AnswerView = React.createClass({
-        addAnswer : function(c,n) {
-          var qid = parseInt( this.props.params.questionId, 10);
+		
+        addAnswer : function(answer,nameOfAnswerer) {
+			
+          var aQuestionsId = parseInt(this.props.params.questionId, 10);
 
-          api.addAnswer(qid,c,n);
+          api.addAnswer(aQuestionsId,answer,nameOfAnswerer);
+		  
           this.setState({});
+		  
       }, 
+	  
       incrementUpvote : function(answerId) {
-             var qid = parseInt( this.props.params.questionId, 10);
+		  
+           var aQuestionsId = parseInt(this.props.params.questionId, 10);
 
-            api.upvoteAnswer(qid, answerId) ;
+           api.upvoteAnswer(aQuestionsId, answerId) ;
+			
            this.setState({});
       },    
+	  
       render: function(){
-             var qid = parseInt(this.props.params.questionId,10) ;
-           var question = api.getQuestion( qid);
+		  
+           var aQuestionsId = parseInt(this.props.params.questionId,10);
+		   
+           var question = api.getQuestion(aQuestionsId);
+		   
            var line = null ;
 		     
 			line =
+			
 			<span>
 			<Link to={'/'}> Home </Link>
 			
@@ -120,15 +141,23 @@
                                  return - answer.upvotes;
                             }
                     ); 
+					
           return (  
-             <div >
-               <h3>{line} </h3>
-               <AnswerList answers={answers} 
-                   upvoteHandler={this.incrementUpvote } />
-               <Form question={question}  answerHandler={this.addAnswer} /> 
-             </div>
+		  
+             <div>
+			 
+               <h3>{line}</h3> 
+			   
+               <AnswerList answers={answers} upvoteHandler={this.incrementUpvote} />
+			   
+               <Form question={question} answerHandler={this.addAnswer} /> 
+			   
+             </div> 
+			 
           );
+		  
       }
+	  
     });
 
     export default AnswerView;
