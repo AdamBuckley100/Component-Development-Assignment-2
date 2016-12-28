@@ -1,8 +1,10 @@
-import React from 'react';
 import './App.css';
+
+import React from 'react';
 import _ from 'lodash';
-import Products from  './Data';
-import { Link } from 'react-router'; 
+import { Link } from 'react-router';
+import request from 'superagent' ; 
+
 
       var SelectBox = React.createClass({
 		  
@@ -43,6 +45,7 @@ import { Link } from 'react-router';
 			  
            });
 
+		   
      var Product= React.createClass({
 		 
           render: function(){
@@ -70,6 +73,7 @@ import { Link } from 'react-router';
 			 
          }) ;
 
+		 
    var FilteredProductList = React.createClass({
 	   
         render: function(){
@@ -96,9 +100,25 @@ import { Link } from 'react-router';
         }
     });
 
+	
 var ProductCatalogueApp = React.createClass({
 	
+    componentDidMount : function() {
+       request.get('http://localhost:4000/api/products')
+          .end(function(error, res){
+            if (res) {
+              var json = JSON.parse(res.text);
+              localStorage.clear();
+              localStorage.setItem('products', JSON.stringify(json)) ;
+              this.setState( {}) ;                
+            } else {
+              console.log(error );
+            }
+          }.bind(this)); 
+    },  
+
      getInitialState: function() {
+		 console.log("TESTING!!!!");
            return { search: '', sort: 'name' } ;
       }, 
 	  
@@ -110,7 +130,60 @@ var ProductCatalogueApp = React.createClass({
               }
       }, 
 	  
+	        addproduct : function(n,a,p) {
+        var that = this;
+        request
+           .post('http://localhost:4000/api/products')
+           .send({ name: n, address: a, phone_number: p })
+           .set('Content-Type', 'application/json')
+           .end(function(err, res){
+             if (err || !res.ok) {
+               alert('Error adding');
+             } else {
+                request.get('http://localhost:4000/api/products')
+                  .end(function(error, res){
+                    if (res) {
+                      var json = JSON.parse(res.text);
+                      localStorage.clear();
+                      localStorage.setItem('products', JSON.stringify(json)) ;
+                      that.setState({}) ;                
+                    } else {
+                      console.log(error );
+                    }
+                   }); 
+             }  // end else
+            }); 
+      },
+		  
+      updateproduct : function(key,n,a,p) {
+        var that = this;
+        request
+           .put('http://localhost:4000/api/products/' + key )
+           .send({ name: n, address: a, phone_number:p })
+           .set('Content-Type', 'application/json')
+           .end(function(err, res){
+             if (err || !res.ok) {
+               alert('Error updating');
+             } else {
+                request.get('http://localhost:4000/api/products')
+                  .end(function(error, res){
+                    if (res) {
+                      var json = JSON.parse(res.text);
+                      localStorage.clear();
+                      localStorage.setItem('products', JSON.stringify(json)) ;
+                      that.setState( {}) ;                
+                    } else {
+                      console.log(error );
+                    }
+                  }); 
+             }
+           });            
+      },
+	  
        render: function(){
+		   
+		      var Products = localStorage.getItem('products') ?
+              JSON.parse(localStorage.getItem('products')) : [] ;
 		   
            var list = Products.filter(function(p) {
 			   
@@ -130,7 +203,9 @@ var ProductCatalogueApp = React.createClass({
 				 
                    <div className="row">
 				   
-				   			   <h1> <strong> Products For Sale </strong> </h1>  
+				   			   <h1> <strong> Console City: </strong> </h1>
+							   <h4> <b> <u> Your One Stop Shop For Game Consoles </u> </b> </h4>
+								<p> <b> <u> Console Products Currently For Sale: </u> </b> </p> 							   
 							   
                       <SelectBox onUserInput={this.handleChange} filterText={this.state.search} sort={this.state.sort} />
 							 
@@ -147,5 +222,6 @@ var ProductCatalogueApp = React.createClass({
           );
         }
 });
+
 
 export default ProductCatalogueApp;

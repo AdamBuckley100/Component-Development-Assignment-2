@@ -1,15 +1,14 @@
 import React from 'react';
-import request from 'superagent' ; 
-import api from './stubAPIQuestions/stubAPI';
-import { Link } from 'react-router';
 import _ from 'lodash';
+import request from 'superagent' ;
+import { Link } from 'react-router';
 import './App.css';
 
   var Specification = React.createClass({
 	  
       render: function(){
 	  
-          var product = this.props.product; 
+          var product = this.props.product;
           			
           var display = (
 	
@@ -35,14 +34,14 @@ import './App.css';
 				  <li>
                     <dl>
                       <dt>Release Year</dt>
-                         {product.releaseYear}
+                         {product.ReleaseYear}
                     </dl>
                   </li>
 
 				  <li>
                     <dl>
                       <dt>Version</dt>
-                         {product.version}
+                         {product.Version}
                     </dl>
                   </li>
 				  <br></br>
@@ -50,21 +49,21 @@ import './App.css';
 				  <li>
                     <dl>
                       <dt>RAM</dt>
-                         {product.ram}
+                         {product.RAM}
                     </dl>
                   </li>
 				  
 				  <li>
                     <dl>
                       <dt>Manufacturer</dt>
-                         {product.manufacturer}
+                         {product.Manufacturer}
                     </dl>
                   </li>
 				  
 				  <li>
                     <dl>
                       <dt>Weight</dt>
-                         {product.weight}
+                         {product.Weight}
                     </dl>
                   </li>
 				  
@@ -98,7 +97,7 @@ import './App.css';
            this.setState({query: e.target.value});
        },
 	   
-	    handleSubmit: function(e) { {/* submit is the add button! */}
+	    handleSubmit: function(e) {
         e.preventDefault();
 	    var subject = this.state.subject.trim();
         var query = this.state.query.trim();
@@ -141,9 +140,9 @@ import './App.css';
 			
           }
 		  
-       });
+       });	   
 	   
-    var QuestionItem = React.createClass({
+    var Question = React.createClass({
 		
 			getInitialState : function() {
                return {
@@ -154,7 +153,7 @@ import './App.css';
             },
 			
 		handleVote : function() {
-          this.props.upvoteHandler(this.props.post.id);
+          this.props.upvoteHandler(this.props.product.id);
         },
 		
         render : function() {
@@ -189,126 +188,89 @@ import './App.css';
         );
         }
        }) ;
-	   
-	  var QuestionList = React.createClass({
-		  
-        render : function() {
-			
-          var items = this.props.questions.map(function(question,index) {
-			  
-             return <QuestionItem key={index} question={question} addHandler={this.props.addHandler} /> ;
-						
-            }.bind(this) )
-			
-          return (
-		  
-            <div>
-			
-                  {items}
-				  
-                  </div>
-            );
-        }
-    }) ; 
-	   
-    var ImagesSection = React.createClass({
-		
-      render: function(){
-		  
-            var thumbImages = this.props.product.images.map(function(img,index) {
-				
-              return (
-                  <li>
-				  <br>
-				  </br>
-				  <br>
-				  </br>
-                   <img key={index} src={"/productSpecs/" + img} alt="missing" />
-				  <br>
-				  </br>	
-				  <br>
-				  </br>
-                  </li>
-                );
-                });
-				
-              return (
-			  
-                  <div>
-			  	 <p><b>Photos Of {this.props.product.name}:</b></p>
-				 <br></br>
-                   <ul className="product-thumbs">
-                       {thumbImages}
-                   </ul>
-                  </div>
-                  );
-          }
-    })
 
+		
+	var QuestionList = React.createClass({
+    render : function() {
+      var items = this.props.questions.map(function(question,index) {
+             return <Question key={index} question={question} 
+                      addHandler={this.props.addHandler}  /> ;
+         }.bind(this) )
+      return (
+            <div>
+              {items}
+            </div>
+        );
+    }
+}) ;  
+	
+	
     var ProductDetail = React.createClass({
 		
-       getInitialState: function() {
+	getInitialState: function() {
            return { product: null };
        },
-	   
-	   		 addQuestion : function(s,q) {
-            if (api.add(s,q)) {
-             this.setState({});
-			}
-          },
-	   
-       componentDidMount: function() {
-		   
+		
+    componentDidMount : function() {
+       request.get('http://localhost:4000/api/products/' + this.props.params.productId )
+          .end(function(error, res){
+            if (res) {
+              var json = JSON.parse(res.text);
+              localStorage.clear();
+              localStorage.setItem('product', JSON.stringify(json)) ;
+              this.setState( {}) ;                
+            } else {
+              console.log(error );
+            }
+          }.bind(this)); 
+      }, 
+	
+    addQuestion : function(s,q) {
+        request
+           .post('http://localhost:4000/api/products/' + 
+                      this.props.params.productId    + '/questions' )
+           .send({ subject: s, query: q })
+           .set('Content-Type', 'application/json')
+           .end(function(err, res){
+             if (err || !res.ok) {
+               alert('Error adding');
+             } else {
+                var json = JSON.parse(res.text);
+                localStorage.clear();
+                localStorage.setItem('product', JSON.stringify(json)) ;
+                this.setState( {}) ;                
+             }
+           }.bind(this)); 
+  }, 
 
-		   var url = '/theJsonFiles/' + this.props.params.id + '.json';
-		   console.log("Debug... testing to see if the url is undefined or not:" + url);
-		   
-          request.get(
-             url, function(err, res) {
-                 window.resp = res;
-				 
-				 var json = JSON.parse(res.text);
-				 
-                if (this.isMounted()) {
-					
-                    this.setState({product : json});
-					
-          }
-        }.bind(this));
-      } ,
-	  
       render: function(){	  
+			   
+			var display;
 
-		 var questions = _.sortBy(api.getAll(), function(question) {
+			var product = localStorage.getItem('product') ?
+            JSON.parse(localStorage.getItem('product')) : 
+               { name: '', description: '', ReleaseYear: '', Version: '', RAM: '', Manufacturer: '', Weight: '', questions: [] } ;
+			   
+			   		 var questions = _.sortBy(product.questions, function(question) {
 			 
          return - question;
              }
           );
-	  
-		var display;
-
-            var product = this.state.product ;
 			
-				if (product)
-				{
-				display =  (
+				display = 
+				(
                 <div>
-				   <Specification product={product} />
-                   <ImagesSection product={product} />  
-                </div>
-                ) ;
-             }
-			 
-			 else
-			 {
-			display = <p>No product details</p> ; 
-			 }
+				   <Specification product={product} /> 
+                </div>	
+                );
 			 
             return (
+			
                 <div>
 				{display}
 				<QuestionList questions={questions} />
-               <Form addHandler={this.addQuestion}  />
+				<Form addHandler={this.addQuestion}  />
+			   
             </div>
             );
       }

@@ -116,8 +116,17 @@
 	  
       render: function(){
 		  
+			var question = localStorage.getItem('question') ?
+            JSON.parse(localStorage.getItem('question')) : 
+            { name: '', description: '', ReleaseYear: '', Version: '', RAM: '', Manufacturer: '', Weight: '', questions: [] } ;
+		  
            var aQuestionsId = parseInt(this.props.params.questionId,10);
 		   
+		   var answers = _.sortBy(post.answers, function(answer) {
+                             return - answer.upvotes;
+                        }
+                    ); 
+					
            var question = api.getQuestion(aQuestionsId);
 		   
            var line = null ;
